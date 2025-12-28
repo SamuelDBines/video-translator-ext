@@ -1,0 +1,24 @@
+{
+  "name": "Video Translator MVP",
+  "version": "0.1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_title": "Video Translator",
+    "default_popup": "popup.html"
+  },
+  "permissions": ["activeTab", "scripting", "tabCapture", "offscreen"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "sw.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["overlay.css"],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ]
+}
