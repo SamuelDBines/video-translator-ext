@@ -2,8 +2,6 @@ import json
 import sys
 from faster_whisper import WhisperModel
 
-# Use a small model to keep it cheap/fast.
-# Options: "tiny", "base", "small"
 MODEL_SIZE = "tiny"
 
 def main():
@@ -16,9 +14,6 @@ def main():
     # CPU inference by default
     model = WhisperModel(MODEL_SIZE, device="cpu", compute_type="int8")
 
-    # We only need a short sample for language detection
-    # but faster-whisper detects language during transcription.
-    # We'll transcribe a small chunk and read info.
     segments, info = model.transcribe(
         wav_path,
         task="transcribe",
@@ -27,7 +22,6 @@ def main():
         beam_size=1
     )
 
-    # Consume a few segments to trigger work (not strictly needed but safe)
     _ = []
     for i, seg in enumerate(segments):
         _.append(seg.text)
